@@ -44,32 +44,33 @@
       &nbsp; &nbsp; &nbsp;
       <input type="text" id="id" placeholder="ID to delete...">
       <button id="myBtn" onclick="borrar()">delete</button>
-    </div>
-    <table class="tablas" id="usuariosAll" id="todos">
-      <tr>
-        <th>ID</th>
-        <th>Users</th>
-        <th>Email</th>
-        <th>Number phone</th>
-      </tr>
-    </table>
-    <br>
-  
-    <hr>
-    <br>
-    <input type="text" id="id-search" placeholder="ID to search...">
-    <button id="myBtn" onclick="buscar()">search</button>
-    <br>
-  
-    <table class="tablas" id="buscados">
-      <tr>
-        <th>ID</th>
-        <th>Users</th>
-        <th>Email</th>
-        <th>Number phone</th>
-      </tr>
-    </table>
     
+      <table class="tablas" id="todos">
+        <tr>
+          <th>ID</th>
+          <th>Users</th>
+          <th>Email</th>
+          <th>Number phone</th>
+        </tr>
+      </table>
+      <br>
+    
+      <hr>
+      <br>
+      <input type="text" id="id-search" placeholder="ID to search...">
+      <button id="myBtn" onclick="buscar()">search</button>
+      <br>
+  
+      <table class="tablas" id="buscados">
+        <tr>
+          <th>ID</th>
+          <th>Users</th>
+          <th>Email</th>
+          <th>Number phone</th>
+        </tr>
+      </table>
+    </div>
+
     <script type="module" src="src/main.ts"></script>
     <script>
         window.onload = function () {
