@@ -93,17 +93,10 @@
         newLi.appendChild(newP)
         document.getElementById(tabla).appendChild(newLi);
       }
+      
       async function getUsers() {
         const uri = "http://localhost:3000";
-        const promise = fetch(uri, {
-          method: "get",
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "omit", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const promise = conectar("get", uri);
       
         json = promise.then(response => response.json());
         json.then(data => {
@@ -145,20 +138,12 @@
         }
         location.reload();
       }
+      
       async function borrar() {
         id_del = document.getElementById("id").value;
         
         const uri = `http://localhost:3000/${id_del}`; //http://localhost:5000/api/notes/10
-        const res = await fetch(uri, {
-          method: "delete",
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "omit", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-            //Authorization: "Bearer" + localStorage.token,
-          },
-        });
+        const res = conectar("delete", uri);
 
         console.log(res);
         if (res.status === 200) {
@@ -170,6 +155,17 @@
           return false;
         }
         location.reload();
+      }
+
+      async function conectar(accion, uri){
+        return await fetch(uri, {
+          method: "delete",
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "omit", // include, *same-origin, omit
+          headers: {"Content-Type": "application/json",
+          //Authorization: "Bearer" + localStorage.token,
+          },});
       }
     </script>
   </body>
