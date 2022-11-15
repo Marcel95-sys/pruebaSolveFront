@@ -93,7 +93,7 @@
         newLi.appendChild(newP)
         document.getElementById(tabla).appendChild(newLi);
       }
-      
+
       async function getUsers() {
         const uri = "http://localhost:3000";
         const promise = conectar("get", uri);
@@ -142,7 +142,7 @@
       async function borrar() {
         id_del = document.getElementById("id").value;
         
-        const uri = `http://localhost:3000/${id_del}`; //http://localhost:5000/api/notes/10
+        const uri = `http://localhost:3000/${id_del}`;
         const res = conectar("delete", uri);
 
         console.log(res);
@@ -159,7 +159,7 @@
 
       async function conectar(accion, uri){
         return await fetch(uri, {
-          method: "delete",
+          method: accion,
           mode: "cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "omit", // include, *same-origin, omit
