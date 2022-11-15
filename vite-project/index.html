@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Solve X</title>
+  </head>
+  <body>
+    <div id="usuariosAll">
+      <input type="text" id="nick" placeholder="Nickname...">
+      <input type="text" id="email" placeholder="Email...">
+      <input type="password" id="passw" placeholder="Password...">
+      <input type="text" id="numphone" placeholder="Number phone...">
+      <button id="myBtn" onclick="save()">save</button>
+      &nbsp; &nbsp; &nbsp;
+      <input type="text" id="id" placeholder="ID to delete...">
+      <button id="myBtn" onclick="borrar()">delete</button>
+    </div>
+    <table class="tablas" id="usuariosAll" id="todos">
+      <tr>
+        <th>ID</th>
+        <th>Users</th>
+        <th>Email</th>
+        <th>Number phone</th>
+      </tr>
+    </table>
+    <br>
+  
+    <hr>
+    <br>
+    <input type="text" id="id-search" placeholder="ID to search...">
+    <button id="myBtn" onclick="buscar()">search</button>
+    <br>
+  
+    <table class="tablas" id="buscados">
+      <tr>
+        <th>ID</th>
+        <th>Users</th>
+        <th>Email</th>
+        <th>Number phone</th>
+      </tr>
+    </table>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+        window.onload = function () {
+        getUsers();
+      }
+
+      function addUsersHTML(id, nick, email, numphone){
+        let newLi = document.createElement("tr");
+        let newP = document.createElement("td")
+        newP.innerText = id;
+        newLi.appendChild(newP)
+        newP = document.createElement("td")
+        newP.innerText = nick;
+        newLi.appendChild(newP)
+        newP = document.createElement("td")
+        newP.innerText = email;
+        newLi.appendChild(newP)
+        newP = document.createElement("td")
+        newP.innerText = numphone;
+        newLi.appendChild(newP)
+        document.getElementById(tabla).appendChild(newLi);
+      }
+      async function getUsers() {
+        const uri = "http://localhost:3000";
+        const promise = fetch(uri, {
+          method: "get",
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "omit", // include, *same-origin, omit
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      
+        json = promise.then(response => response.json());
+        json.then(data => {
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            addUsersHTML(data[i].id, data[i].nick, data[i].email, data[i].numphone);
+          }});
+
+      }
+      async function save() {
+        in_nick = document.getElementById("nick").value;
+        in_email = document.getElementById("email").value;
+        in_passw = document.getElementById("passw").value;
+        in_num = document.getElementById("numphone").value;
+
+
+        userNew = {nick: in_nick, email: in_email, passw: in_passw, numphone: in_num}
+
+        const uri = "http://localhost:3000";
+        const res = await fetch(uri, {
+            method: "post",
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "omit", // include, *same-origin, omit
+            headers: {
+            "Content-Type": "application/json",
+            },
+            
+            body: JSON.stringify(userNew),
+          }
+        );
+
+        if (res.status === 200) {
+          res.text().then(id => {
+            console.log(id)
+          });
+        } else {
+          alert("Error: Note not stored");
+        }
+        location.reload();
+      }
+      async function borrar() {
+        id_del = document.getElementById("id").value;
+        
+        const uri = `http://localhost:3000/${id_del}`; //http://localhost:5000/api/notes/10
+        const res = await fetch(uri, {
+          method: "delete",
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "omit", // include, *same-origin, omit
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: "Bearer" + localStorage.token,
+          },
+        });
+
+        console.log(res);
+        if (res.status === 200) {
+          res.text().then(txt => {
+            alert(txt);
+            return true;
+          });
+        } else {
+          return false;
+        }
+        location.reload();
+      }
+    </script>
+  </body>
+</html>
