@@ -1,16 +1,24 @@
 # Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+HTML
 
-## Recommended IDE Setup
+En primer lugar tenemos cuatro inputs de tipo texto para introducir el nickname, email, contraseña, y numero de telefono, seguido de un boton para guardar al nuevo usuario. 
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+Despues tenemos otra caja de texto para introducir el id del usuario al que nos referimos y un boton para eliminarlo.
 
-## Type Support For `.vue` Imports in TS
+La tabla extendera según la cantidad de usuarios que encuentre a través del script getUser.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+Debajo de la tabla tenemos los inputs para poder actualizar los valores. una caja de texto para introducir el nuevo valor y un desplegable para indicar a que item nos referimos.
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+JAVASCRIPT
+
+Con addUsersHTML añadimos una fila de la tabla con los datos del usuario (excluyendo el password) que ha recibido a través de la llamada.
+
+En getUsers se conecta al get del Backend para obtener todos los usuarios y llamar en bucle a addUsersHTML pasando los valores de cada usuario de uno en uno en cada llamada que se hace en el bucle. Esta funcion es llamada cada vez que se carga la pagina
+
+El script save sera ejecutado al clicar en el boton save. Este script recoge los valores introducidos en las cuatro primeras cajas de texto mencionadas anteriormente y los guardara en userNew. Despues conectara con al post del Backend enviando el userNew a través del json. 
+
+En actualizar es muy parecido a lo que se hace con save, con la diferencia que los valores que recoge son del desplegable option y de la caja valorNew
+
+En borrar recogemos la id en la caja de texto id y conectamos al delete del Backend enviando por url el id del usuario que se va a borrar 

@@ -58,15 +58,17 @@
       <hr>
       <br>
       <input type="text" id="valorNew" placeholder="Value for update...">
+
       <select id="option" placeholder="ID to search...">
         <option value="nick">Nickname</option>
         <option value="email">Email</option>
         <option value="numphone">Phone number</option>
       </select>
+
       <button id="myBtn" onclick="actualizar()">Update</button>
       <br>
     
-    
+    </div>
     <script>
         window.onload = function () {
         getUsers();
@@ -123,6 +125,33 @@
             body: JSON.stringify(userNew),
           }
         );
+        if (res.status === 200) {
+          res.text().then(id => {
+            console.log(id)
+          });
+        } else {
+          alert("Error: Note not stored");
+        }
+        location.reload();
+      }
+      
+      async function actualizar() {
+        in_option = document.getElementById("option").value;
+        in_value = document.getElementById("valorNew").value;
+
+        const uri = `http://localhost:3000/${in_option}`;
+        const res = await fetch(uri, {
+            method: "put",
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "omit", // include, *same-origin, omit
+            headers: {
+            "Content-Type": "application/json",
+            },
+            
+            body: JSON.stringify(in_value),
+          }
+        );
 
         if (res.status === 200) {
           res.text().then(id => {
@@ -159,8 +188,9 @@
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "omit", // include, *same-origin, omit
           headers: {"Content-Type": "application/json",
-          //Authorization: "Bearer" + localStorage.token,
-          },});
+          /*Authorization: "Bearer" + localStorage.token,*/
+          },
+        });
       }
     </script>
   </body>
