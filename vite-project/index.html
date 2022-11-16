@@ -58,12 +58,17 @@
     
       <hr>
       <br>
-      <input type="text" id="id-search" placeholder="ID to search...">
-      <button id="myBtn" onclick="buscar()">search</button>
+      <input type="text" id="valorNew" placeholder="Value for update...">
+      <select id="option" placeholder="ID to search...">
+        <option value="nick">Nickname</option>
+        <option value="email">Email</option>
+        <option value="email">Phone number</option>
+      </select>
+      <button id="myBtn" onclick="actualizar()">Update</button>
       <br>
   
       
-
+    
     <script type="module" src="src/main.ts"></script>
     <script>
         window.onload = function () {
